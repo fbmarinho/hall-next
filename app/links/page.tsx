@@ -1,8 +1,8 @@
 import LinkCard from "@/components/links/link-card";
-import { getActiveLinks } from "./links/link-actions";
+import { getAll } from "./link-actions";
 
 export default async function Home() {
-	const links = await getActiveLinks();
+	const links = await getAll();
 
 	return (
 		<main>
