@@ -100,7 +100,7 @@ model Link{
   description   String?
   href          String
   target        String          
-  active        Boolean         @default(true)
+  active        Boolean         @default(false)
   createdAt     DateTime?       @default(now()) @db.Date
   modifiedAt    DateTime?       
 }

@@ -30,7 +30,7 @@ export async function getActiveLinks() {
 }
 
 /** Create link */
-export async function createlink(data: FormData) {
+export async function createlink(action: FormState, data: FormData) {
 	const icon = data.get("icon") as string;
 	const title = data.get("title") as string;
 	const description = data.get("description") as string;
@@ -38,9 +38,27 @@ export async function createlink(data: FormData) {
 	const target = data.get("target") as string;
 	const type = data.get("type") as string;
 
+	if (title == "" || href == "") {
+		return {
+			message: "",
+			error: "Erro ao incluir dados !",
+		};
+	}
+
 	const now = new Date(Date.now());
 	const insert = await prisma.link.create({ data: { icon, title, description, href, target, type, modifiedAt: now } });
-	revalidatePath("/links");
+
+	if (!insert) {
+		return {
+			message: "",
+			error: "Erro ao incluir dados !",
+		};
+	}
+
+	return {
+		message: "ok",
+		error: "",
+	};
 }
 
 /** Create link */
